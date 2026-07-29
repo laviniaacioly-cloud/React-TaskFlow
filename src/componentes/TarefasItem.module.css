@@ -24,7 +24,15 @@
     color: #94a3b8;
     text-decoration: line-through;
 }
-#btn-deletar {
+
+.tarefa.concluida{
+    text-decoration: line-through; 
+    border-left-color: #4d4d56 !important; 
+}
+.tarefa.alta{ border-left-color: #f74b4b; }
+.tarefa.media{ border-left-color: #e1a32a;}
+.tarefa.baixa{ border-left-color: #04d361;}
+/* .btnDeletar{
     background: none;
     padding: 0 4px;
     border: none;
@@ -34,6 +42,6 @@
     color: white;
     cursor: pointer;
 }
-#btn-deletar:hover {
+.btnDeletar{
     background-color: #ff0000;
-}
+} */

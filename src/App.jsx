@@ -1,6 +1,35 @@
 import "./App.css"
 import Header from "./componentes/Header"
+import ListaTarefas from "./componentes/ListaTarefas";
 import TarefaItem from "./componentes/TarefasItem"
+
+const tarefasIniciais = [
+  {
+    id: 1,
+    texto: "Estudar React",
+    concluida: false,
+    prioridade: 'alta',
+  },
+  {
+    id: 2,
+    texto: 'Criar componentes',
+    concluida: true,
+    prioridade: 'media',
+  },
+  {
+    id: 3,
+    texto: 'Entender props',
+    concluida: false,
+    prioridade: 'alta',
+  },
+  {
+    id: 4,
+    texto: 'Praticar exercicios',
+    concluida: false,
+    prioridade: 'baixa',
+  },
+];
+
 
 function App() {
   return (
@@ -25,7 +54,7 @@ function App() {
 
           <button id="btn-adicionar">Adicionar</button>
 
-          <button id="btn-deletar">Deletar</button>
+          {/* <button id="btn-deletar">Deletar</button> */}
         </section>
 
         <section id="controles">
@@ -47,13 +76,8 @@ function App() {
           </div>
         </section>
 
-        <section id="lista-section">
-          <ul id="tarefas">
-            <TarefaItem texto="Estudar React" />
-            <TarefaItem texto="criar tarefas" />
-            <TarefaItem texto="Executar tarefa" />
-          </ul>
-        </section>
+        <ListaTarefas tarefas={tarefasIniciais} />
+
       </main>
 
       <footer>

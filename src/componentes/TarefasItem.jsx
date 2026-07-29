@@ -10,7 +10,7 @@ function TarefaItem({texto, concluida = false, prioridade = 'media'}) {
   return (
     <li className='tarefa'>
       <span className={classeTexto}>{texto}</span>
-      <button className='btnDeletar'>X</button>
+      <button className='btnDeletar'>DELETAR</button>
     </li>
   );
 }
