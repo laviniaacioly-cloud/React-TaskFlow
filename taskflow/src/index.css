@@ -108,14 +108,17 @@ footer{
     color: white;
 }
 
-.tarefa.alta{   
-    border-left-color: #ef4444;
+.btn-adicionar{
+    border-radius: 8px;
+    padding: 10px 20px;
+    border: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+.btn-adicionar:hover {
+  background-color: #45a049;
 }
 
-.tarefa.media{
-    border-left-color: #f59e0b;
-}
-
-.tarefa.baixa{
-    border-left-color: #22c55e;
+.btn-adicionar:active {
+  transform: scale(0.98);
 }
