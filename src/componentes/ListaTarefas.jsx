@@ -1,5 +1,5 @@
 import TarefaItem from "./TarefasItem";
-function ListaTarefas({tarefas}) {
+function ListaTarefas({tarefas, prioridade, onDeletar, onCocluir}) {
     return(
         <section id="lista-section">
             {tarefas.length === 0 && (
@@ -15,6 +15,8 @@ function ListaTarefas({tarefas}) {
                         texto={tarefa.texto}
                         concluida={tarefa.concluida}
                         prioridade={tarefa.prioridade}
+                        onDeletar={()=> onDeletar (tarefa.id)}
+                        onConcluir={()=> onCocluir(tarefa.id)}
                         />
                     ))}
                 </ul>

@@ -4,65 +4,44 @@ import ListaTarefas from "./componentes/ListaTarefas";
 import TarefaItem from "./componentes/TarefasItem"
 import { useState } from "react";
 
-const tarefasIniciais = [
-  // {
-  //   id: 1,
-  //   texto: "Estudar React",
-  //   concluida: false,
-  //   prioridade: 'alta',
-  // },
-  // {
-  //   id: 2,
-  //   texto: 'Criar componentes',
-  //   concluida: true,
-  //   prioridade: 'media',
-  // },
-  // {
-  //   id: 3,
-  //   texto: 'Entender props',
-  //   concluida: false,
-  //   prioridade: 'alta',
-  // },
-  // {
-  //   id: 4,
-  //   texto: 'Praticar exercicios',
-  //   concluida: false,
-  //   prioridade: 'baixa',
-  // },
-];
-
+const tarefasIniciais = [];
 
 function App() {
   const [tarefas, setTarefas]     = useState([]);
   const [proximoId, setProximoId] = useState(1);
   const [texto, setTexto]         = useState('');
+  const [prioridade, setPrioridade] = useState ("media")
 
-  function aoClicar(){
-  console.log(texto)
-  setTexto("")
-}
+
 
 function adicionarTarefa() {
     if (texto.trim() === '') return; // validacao
 
     const nova = {
-      id: proximoId,
-      texto: texto.trim(),
-      concluida: false,
-      prioridade: 'media',
+        id: proximoId,
+        texto: texto.trim(),
+        concluida: false,
+        prioridade: prioridade, 
     };
+  
 
     setTarefas([...tarefas, nova]); // adiciona ao array
     setProximoId(proximoId + 1);    // incrementa o id
     setTexto('');                   // limpa o campo
+    setPrioridade("media"); // reseta a prioridade para o valor padrão
   }
 
+    function deletarTarefa(id) {
+     setTarefas(tarefas.filter(tarefa => tarefa.id !== id));
+  }
+    function concluirTarefa(id) {
+    setTarefas(tarefas.map(tarefa =>
+      tarefa.id === id ? { ...tarefa, concluida: !tarefa.concluida } : tarefa
+    ));
+  }
+  
   return (
     <div className="conteiner" id="app">
-      {/* <header>
-        <h1>TaskFlow</h1>
-        <p>Gerencie suas tarefas</p>
-      </header> */}
       <Header titulo="TaskFlow" subtitulo="Gerencie suas tarefas" />
 
       <main className="conteiner">
@@ -74,21 +53,22 @@ function adicionarTarefa() {
           autoComplete="off"
           value={texto}
           onChange={e => setTexto(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && adicionarTarefas()}
+          onKeyDown={e => e.key === 'Enter' && adicionarTarefa()}
           />
-            <button onClick={adicionarTarefa}>
-              Adicionar
-            </button>
-
-          <select id="sel-prioridade">
+      
+          <select id="sel-prioridade"
+           value = {prioridade}
+          onChange={e => setPrioridade(e.target.value)}  
+          >
             <option value="alta">Alta</option>
             <option value="media">Média</option>
             <option value="baixa">Baixa</option>
           </select>
 
-          {/* <button id="btn-adicionar">Adicionar</button> */}
+             <button className="btn-adicionar" type="button" onClick={adicionarTarefa}>
+              Adicionar
+            </button>
 
-          {/* <button id="btn-deletar">Deletar</button> */}
         </section>
 
         <section id="controles">
@@ -110,7 +90,7 @@ function adicionarTarefa() {
           </div>
         </section>
 
-        <ListaTarefas tarefas={tarefas} />
+        <ListaTarefas tarefas={tarefas} onDeletar={deletarTarefa} onConcluir={concluirTarefa} />
 
       </main>
 
