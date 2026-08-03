@@ -4,7 +4,11 @@ import ListaTarefas from "./componentes/ListaTarefas";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [tarefas, setTarefas] = useState([]);
+  const [tarefas, setTarefas] = useState(() => {
+    const tarefasSalvas = localStorage.getItem('TaskFlow.tarefas')
+    return tarefasSalvas ? JSON.parse (tarefasSalvas) : []
+  });
+
   const [proximoId, setProximoId] = useState(1);
   const [texto, setTexto] = useState("");
   const [prioridade, setPrioridade] = useState("media");
@@ -12,12 +16,7 @@ function App() {
   const [filtro, setFiltro] = useState("todas");
 
   useEffect(() => {
-    const pendentes = tarefas.filter(tarefa => !tarefa.concluida).length;
-    if (pendentes > 0) {
-      document.title = '(' + pendentes + ') Taskflow';
-    } else {
-      document.title = 'TaskFlow';
-    }
+    localStorage.setItem ('TaskFlow.tarefas', JSON.stringify(tarefas))
   }, [tarefas]);
   useEffect(() => {
     console.log('TaskFlow iniciou!');
