@@ -1,7 +1,7 @@
 import "./App.css";
 import Header from "./componentes/Header";
 import ListaTarefas from "./componentes/ListaTarefas";
-import { use, useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [tarefas, setTarefas] = useState([]);
@@ -10,6 +10,20 @@ function App() {
   const [prioridade, setPrioridade] = useState("media");
   //filtros
   const [filtro, setFiltro] = useState("todas");
+
+  useEffect(() => {
+    const pendentes = tarefas.filter(tarefa => !tarefa.concluida).length;
+    if (pendentes > 0) {
+      document.title = '(' + pendentes + ') Taskflow';
+    } else {
+      document.title = 'TaskFlow';
+    }
+  }, [tarefas]);
+  useEffect(() => {
+    console.log('TaskFlow iniciou!');
+    console.log ('hora: ', new Date().toLocaleTimeString('pt-BR'));
+  });
+
 
   function adicionarTarefa() {
     if (texto.trim() === "") return;
