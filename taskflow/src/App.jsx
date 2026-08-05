@@ -1,238 +1,76 @@
 import "./App.css";
-import Header from "./componentes/Header";
+import TarefasV1 from "./componentes/tarefasV1";
+// import Header from "./componentes/Header";
 // import ListaTarefas from "./componentes/ListaTarefas";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 function App() {
-  const [tarefas, setTarefas] = useState(() => {
-    //procura as tarefas salvas no navegador
-    const salvo = localStorage.getItem("TaskFlow.tarefas");
-    //transforma o  LocalStorage em array
-    return salvo ? JSON.parse(salvo) : []; // se não existir começa com lista vazia
-  });
 
-  const [proximoId, setProximoId] = useState(() => {
-    const salvo = localStorage.getItem("TaskFlow.tarefas");
+    const minhaPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const operacaoDeuCerto = true;
+            if (operacaoDeuCerto) {
+                resolve("Dados chegaream!");
+            } else {
+                reject("Algo deu errado...");
+            }
+        }, 2000);
+    });
 
-    if (salvo) {
-      const dados = JSON.parse(salvo);
-      return dados.length > 0 ? dados[dados.length - 1].id + 1 : 1;
-    }
-
-    return 1;
-  });
-
-  const [texto, setTexto] = useState("");
-  const [prioridade, setPrioridade] = useState("media");
-  const [filtro, setFiltro] = useState("todas");
-
-  useEffect(() => {
-    localStorage.setItem("TaskFlow.tarefas", JSON.stringify(tarefas));
-  }, [tarefas]);
-
-  function adicionarTarefa() {
-    if (texto.trim() === "") return;
-
-    const nova = {
-      id: proximoId,
-      texto: texto.trim(),
-      concluida: false,
-      prioridade: prioridade,
-      coluna: "afazer",
-    };
-
-    setTarefas([...tarefas, nova]);
-    setProximoId(proximoId + 1);
-    setTexto("");
-    setPrioridade("media");
-  }
-
- function moverTarefa(id, novaColuna) {
-  setTarefas(
-    tarefas.map((tarefa) =>
-      tarefa.id === id
-        ? {
-            ...tarefa,
-            coluna: novaColuna,
-            concluida: novaColuna === "concluido",
-          }
-        : tarefa
-    )
-  );
+function execPromise() {
+    const minhaPromise = new Promise ((resolve, reject) => {
+        setTimeout(() => {
+            const operacaoDeuCerto = true;
+            if (operacaoDeuCerto) {
+                resolve ("Dados chegaram!");
+            } else {
+                reject ("Algo deu errado...");
+            }
+        }, 5000);
+    });
+    minhaPromise.then((mensagem) => {
+        console.log("Sucesso:", mensagem);
+    })
+    .catch((erro) =>{
+        console.error("Erro:", erro);
+    });
+    console.log("Promise criada, aguardando resultado...");
 }
 
-  function deletarTarefa(id) {
-    setTarefas(tarefasFiltradas.filter((tarefa) => tarefa.id !== id));
-  }
-
-  const tarefasFiltradas = tarefas.filter((tarefa) => {
-  if (filtro === "pendentes") {
-    return !tarefa.concluida;
-  }
-
-  if (filtro === "concluidas") {
-    return tarefa.concluida;
-  }
-
-  return true;
-});
-
-  // function concluirTarefa(id) {
-  //   setTarefas(
-  //     tarefas.map((tarefa) =>
-  //       tarefa.id === id ? { ...tarefa, concluida: !tarefa.concluida } : tarefa,
-  //     ),
-  //   );
-  // }
+async function buscarUsuario(id) {
+    try {
+        const resposta = await fetch(
+            'https://jsonplaceholder.typicode.com/users/' + id
+        );
+        const usuario = await resposta.json();
+        console.log ('Nome:', usuario.name);
+        return usuario
+    } catch (erro) {
+        console.log ("Erro:", erro.mensagem);
+        return null
+    } finally {
+        console.log('finalizado');
+    }
+}
+buscarUsuario(1);
 
   return (
-    <div className="conteiner">
-      <Header titulo="TaskFlow" subtitulo="Gerencie suas tarefas" />
-
-      <main>
-        {/* Formulário */}
-        <section id="formulario">
-          <input
-            id="input-tarefa"
-            type="text"
-            placeholder="Nova tarefa..."
-            autoComplete="off"
-            value={texto}
-            onChange={(e) => setTexto(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && adicionarTarefa()}
-          />
-
-          <select
-            id="sel-prioridade"
-            value={prioridade}
-            onChange={(e) => setPrioridade(e.target.value)}
-          >
-            <option value="alta">Alta</option>
-            <option value="media">Média</option>
-            <option value="baixa">Baixa</option>
-          </select>
-
-          <button
-            className="btn-adicionar"
-            type="button"
-            onClick={adicionarTarefa}
-          >
-            Adicionar
-          </button>
-        </section>
-           <section id="controles">
-          <div id="filtros">
-            <button
-              className={filtro === "todas" ? "btn-filtro ativo" : "btn-filtro"}
-              onClick={() => setFiltro("todas")}
-            >
-              Todas
-            </button>
-
-            <button 
-              className={filtro === "pendentes" ? "btn-filtro ativo" : "btn-filtro"}
-              onClick={() => setFiltro("pendentes")}
-            >
-              Pendentes
-            </button>
-
-            <button 
-              className={filtro === "concluidas" ? "btn-filtro ativo" : "btn-filtro"}
-              onClick={() => setFiltro("concluidas")}
-            >
-              Concluídas
-            </button>
-          </div>
-
-          <div id="contadores">
-            <span id="cont-total">
-              {tarefas.length} tarefas
-            </span>
-
-            <span id="cont-pendentes">
-              {tarefas.filter((tarefa) => !tarefa.concluida).length} pendentes
-            </span>
-
-            <span id="cont-concluidas">
-              {tarefas.filter((tarefa) => tarefa.concluida).length} concluídas
-            </span>
-          </div>
-        </section>
-
-        {/* Kanban */}
-
-        <section className="kanban">
-          <section className="coluna">
-            <h2>A Fazer</h2>
-  {/* fazer essa coluna funcionar */}
-            {tarefas
-              .filter((tarefa) => tarefa.coluna === "afazer")
-              .map((tarefa) => (
-                <div key={tarefa.id} className={`card ${tarefa.prioridade}`}>
-                  <p>{tarefa.texto}</p>
-                   <button onClick={() => moverTarefa(tarefa.id, "andamento")}>
-                      →
-                   </button>
-
-                   <button onClick={() => deletarTarefa(tarefa.id)}>
-                      🗑️
-                   </button>
-                </div>
-              ))}
-          </section>
-
-          <section className="coluna">
-            <h2>Em Andamento</h2>
-  {/* fazer essa coluna funcionar */}
-            {tarefas
-            .filter((tarefa) => tarefa.coluna === "andamento")
-            .map((tarefa) => (
-             <div key={tarefa.id} className={`card ${tarefa.prioridade}`}>
-                <p>{tarefa.texto}</p>
-{/* mover as tarefas */}
-{/* esquerda */}
-                <button onClick={() => moverTarefa(tarefa.id, "afazer")}>
-                  ← 
-                </button>
-{/* direita */}
-                <button onClick={() => moverTarefa(tarefa.id, "concluido")}>
-                  →
-                </button>
-
-                  <button onClick={() => deletarTarefa(tarefa.id)}>
-                      🗑️
-                  </button>
-              </div>
-            ))}
-          </section>
-
-          <section className="coluna">
-            <h2>Concluído</h2>
-            
-            {tarefas
-              .filter((tarefa) => tarefa.coluna === "concluido")
-              .map((tarefa) => (
-                <div key={tarefa.id} className={`card ${tarefa.prioridade}`}>
-                  <p>{tarefa.texto}</p>
-
-                  <button onClick={() => moverTarefa(tarefa.id, "andamento")}>
-                    ←
-                  </button>
-
-                    <button onClick={() => deletarTarefa(tarefa.id)}>
-                      🗑️
-                    </button>
-                </div>
-              ))}
-          </section>
-          </section>
-      </main>
-
-      <footer>
-        <p>TaskFlow 2026 - Prof. Alan Glei</p>
-      </footer>
-    </div>
+   <div>
+    <button
+        onClick = {() => {
+            minhaPromise.then((mensagem) => {
+                console.log("Sucesso: ", mensagem);
+            })
+            .catch((erro) => {
+                console.error("Erro:", erro);
+            });
+            console.log ("Promise criada, aguardando resultado...");
+        }}
+        >
+        Testar Promise
+    </button>
+    <button onClick={execPromise}>Testar Promise</button>
+   </div>
   );
 }
-
 export default App;
