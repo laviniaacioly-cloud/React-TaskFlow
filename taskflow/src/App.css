@@ -15,7 +15,7 @@ body {
 header {
   text-align: center;
   padding: 24px 32px;
-  border-bottom: 1px solid #067956;
+  border-bottom: 1px solid #ff00ea;
 }
 
 main {
@@ -42,6 +42,7 @@ main {
   padding: 10px;
   border-radius: 6px;
   border: none;
+  background-color: #f06bde;
 }
 
 /* Corrigido: seu botão usa className="btn-adicionar" */
@@ -49,14 +50,14 @@ main {
   padding: 10px 18px;
   border: none;
   border-radius: 6px;
-  background-color: #0a7465;
+  background-color: #830383;
   color: white;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .btn-adicionar:hover {
-  background-color: #0c8f94;
+  background-color: #f804ec;
 }
 
 .btn-adicionar:active {
@@ -83,14 +84,14 @@ main {
 }
 
 .btn-filtro.ativo {
-  background-color: #056e5d;
+  background-color: #4a0061;
   color: white;
 }
 
 #contadores {
   display: flex;
   gap: 15px;
-  color: #18cf92;
+  color: #c9b0ca;
 }
 
 #lista-tarefas {
@@ -108,6 +109,63 @@ footer {
   padding: 16px;
   text-align: center;
   color: #94a3b8;
-  border-top: 1px solid #219b9b;
+  border-top: 1px solid #ee04da;
   margin-top: 30px;
+}
+/* KANBAN */
+
+.kanban {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.coluna {
+  flex: 1;
+  background-color: #8a0979;
+  border-radius: 8px;
+  padding: 15px;
+  min-height: 300px;
+}
+
+.coluna h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.card {
+  background-color: #31033f;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin-bottom: 10px;
+}
+
+.card button {
+  padding: 6px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #85037a;
+  color: white;
+}
+
+.card button:hover {
+  background-color: #fa03c4;
+}
+.card.alta {
+  border-left: 5px solid #ef4444;
+}
+
+.card.media {
+  border-left: 5px solid #f59e0b;
+}
+
+.card.baixa {
+  border-left: 5px solid #22c55e;
 }
