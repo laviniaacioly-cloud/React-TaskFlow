@@ -25,22 +25,6 @@ const [proximoId, setProximoId] = useState(() => {
   //filtros
   const [filtro, setFiltro] = useState("todas");
 
-//  useEffect(() => {
-//   localStorage.setItem("TaskFlow.tarefas", JSON.stringify(tarefas));
-// }, [tarefas]);
-
-//  useEffect(() => {
-//   const salvo = localStorage.getItem("TaskFlow.tarefas");
-
-//   if (salvo) {
-//     const dados = JSON.parse(salvo);
-//     setTarefas(dados);
-
-//     if (dados.length > 0) {
-//       setProximoId(dados[dados.length - 1].id + 1);
-//     }
-//   }
-// }, []);
 
   function adicionarTarefa() {
     if (texto.trim() === "") return;
