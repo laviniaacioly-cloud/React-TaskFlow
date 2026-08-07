@@ -1,7 +1,7 @@
 // import "./App.css";
 import Header from "./Header";
 import ListaTarefas from "./ListaTarefas";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function TarefasV1() {
  const [tarefas, setTarefas] = useState(() => {

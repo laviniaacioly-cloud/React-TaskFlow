@@ -1,14 +1,11 @@
 import "./App.css";
-import Kanban from "./componentes/kanban";
-
+import Kanban from "./componentes/Kanban";
 
 function App() {
-
   return (
     <>
-    <kanban/>
-   </>
-
+      <Kanban />
+    </>
   );
 }
 
