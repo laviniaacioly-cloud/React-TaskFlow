@@ -1,7 +1,6 @@
-import "../App.css";
+// import "../App.css";
 import Header from "./Header";
 import axios from "axios";
-// import ListaTarefas from "./componentes/ListaTarefas";
 import { useEffect, useState } from "react";
 
 function Kanban() {
@@ -25,7 +24,6 @@ function Kanban() {
 
   const [texto, setTexto] = useState("");
   const [prioridade, setPrioridade] = useState("media");
-  const [filtro, setFiltro] = useState("todas");
   const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
   const [buscandoCep, setBuscandoCep] = useState(false);
@@ -74,15 +72,13 @@ function Kanban() {
   function deletarTarefa(id) {
     setTarefas(tarefas.filter((tarefa) => tarefa.id !== id));
   }
- 
-
 
   async function buscarCep(cepDigitado) {
     const cepLimpo = cepDigitado.replace(/\D/g, "");
 
     if (cepLimpo.length !== 8) {
       setCidade("");
-      setErroCep("Digite um CEP válido.");
+      setErroCep("Digite um CEP válido. ");
       return;
     }
 
@@ -116,7 +112,17 @@ function Kanban() {
     } finally {
       setBuscandoCep(false);
     }
+
   }
+      const totalTarefas = tarefas.length;
+
+    const tarefasPendentes = tarefas.filter(
+      (tarefa) => tarefa.coluna !== "concluido",
+    ).length;
+
+    const tarefasConcluidas = tarefas.filter(
+      (tarefa) => tarefa.coluna === "concluido",
+    ).length;
 
   return (
     <div className="conteiner">
@@ -155,6 +161,7 @@ function Kanban() {
             value={prioridade}
             onChange={(e) => setPrioridade(e.target.value)}
           >
+            {/* PRIORIDADES */}
             <option value="alta">Alta</option>
             <option value="media">Média</option>
             <option value="baixa">Baixa</option>
@@ -168,45 +175,14 @@ function Kanban() {
             Adicionar
           </button>
         </section>
-        <section id="controles">
-          <div id="filtros">
-            <button
-              className={filtro === "todas" ? "btn-filtro ativo" : "btn-filtro"}
-              onClick={() => setFiltro("todas")}
-            >
-              Todas
-            </button>
 
-            <button
-              className={
-                filtro === "pendentes" ? "btn-filtro ativo" : "btn-filtro"
-              }
-              onClick={() => setFiltro("pendentes")}
-            >
-              Pendentes
-            </button>
+        {/* Contadores */}
+        <section id="contadores">
+          <span>Total: {totalTarefas}</span>
 
-            <button
-              className={
-                filtro === "concluidas" ? "btn-filtro ativo" : "btn-filtro"
-              }
-              onClick={() => setFiltro("concluidas")}
-            >
-              Concluídas
-            </button>
-          </div>
+          <span>Pendentes: {tarefasPendentes}</span>
 
-          <div id="contadores">
-            <span id="cont-total">{tarefas.length} tarefas</span>
-
-            <span id="cont-pendentes">
-              {tarefas.filter((tarefa) => !tarefa.concluida).length} pendentes
-            </span>
-
-            <span id="cont-concluidas">
-              {tarefas.filter((tarefa) => tarefa.concluida).length} concluídas
-            </span>
-          </div>
+          <span>Concluídas: {tarefasConcluidas}</span>
         </section>
 
         {/* Kanban */}
@@ -287,6 +263,6 @@ function Kanban() {
       </footer>
     </div>
   );
-};
+}
 
 export default Kanban;

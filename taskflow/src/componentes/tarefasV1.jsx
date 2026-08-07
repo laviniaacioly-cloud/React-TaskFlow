@@ -22,8 +22,6 @@ const [proximoId, setProximoId] = useState(() => {
 
   const [texto, setTexto] = useState("");
   const [prioridade, setPrioridade] = useState("media");
-  //filtros
-  const [filtro, setFiltro] = useState("todas");
 
 
   function adicionarTarefa() {
@@ -58,17 +56,17 @@ const [proximoId, setProximoId] = useState(() => {
 
   }
 
-  const tarefasFiltradas = tarefas.filter((tarefa) => {
-    if(filtro === "pendentes") {
-      return !tarefa.concluida;
-    }
+  // const tarefasFiltradas = tarefas.filter((tarefa) => {
+  //   if(filtro === "pendentes") {
+  //     return !tarefa.concluida;
+  //   }
 
-    if(filtro === "concluidas") {
-      return tarefa.concluida;
-    }
+  //   if(filtro === "concluidas") {
+  //     return tarefa.concluida;
+  //   }
 
-    return true;
-  });
+  //   return true;
+  // });
 
   return (
     <div className="conteiner" id="app">
@@ -107,31 +105,7 @@ const [proximoId, setProximoId] = useState(() => {
             Adicionar
           </button>
         </section>
-
-       <section id="controles">
-          <div id="filtros">
-            <button
-              className={filtro === "todas" ? "btn-filtro ativo" : "btn-filtro"}
-              onClick={() => setFiltro("todas")}
-            >
-              Todas
-            </button>
-
-            <button 
-              className={filtro === "pendentes" ? "btn-filtro ativo" : "btn-filtro"}
-              onClick={() => setFiltro("pendentes")}
-            >
-              Pendentes
-            </button>
-
-            <button 
-              className={filtro === "concluidas" ? "btn-filtro ativo" : "btn-filtro"}
-              onClick={() => setFiltro("concluidas")}
-            >
-              Concluídas
-            </button>
-          </div>
-
+        
           <div id="contadores">
             <span id="cont-total">
               {tarefas.length} tarefas
@@ -145,7 +119,7 @@ const [proximoId, setProximoId] = useState(() => {
               {tarefas.filter((t) => t.concluida).length} concluídas
             </span>
           </div>
-        </section>
+       
 
         <ListaTarefas
           tarefas={tarefasFiltradas}

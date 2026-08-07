@@ -15,7 +15,7 @@ body {
 header {
   text-align: center;
   padding: 24px 32px;
-  border-bottom: 1px solid #067956;
+  border-bottom: 1px solid #aa31cf;
 }
 
 main {
@@ -55,19 +55,20 @@ main {
   padding: 10px 18px;
   border: none;
   border-radius: 6px;
-  background-color: #0a7465;
+  background-color: #a00998;
   color: white;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .btn-adicionar:hover {
-  background-color: #0c8f94;
+  background-color: #c909b9;
 }
 
 .btn-adicionar:active {
   transform: scale(0.98);
 }
+
 
 /* ========================= */
 /* CONSULTA CEP              */
@@ -77,7 +78,7 @@ main {
   display: block;
   margin-top: 6px;
   font-size: 13px;
-  color: #bde7ff;
+  color: #489fd1;
   font-style: italic;
 }
 
@@ -86,46 +87,27 @@ main {
   color: #dcdcdc;
 }
 
+
 /* ========================= */
-/* FILTROS                   */
+/* CONTADORES                */
 /* ========================= */
-
-#controles {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px 0;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-#filtros {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-filtro {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-filtro:hover {
-  background-color: #0c8f94;
-  color: white;
-}
-
-.btn-filtro.ativo {
-  background-color: #056e5d;
-  color: white;
-}
 
 #contadores {
   display: flex;
+  justify-content: center;
   gap: 15px;
-  color: #18cf92;
+  margin: 20px 0;
+  flex-wrap: wrap;
 }
+
+#contadores span {
+  background-color: #470263;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+
 
 /* ========================= */
 /* KANBAN                    */
@@ -139,7 +121,7 @@ main {
 
 .coluna {
   flex: 1;
-  background-color: #1b2a3b;
+  background-color: #470263;
   border-radius: 10px;
   padding: 15px;
   min-height: 400px;
@@ -151,13 +133,14 @@ main {
   color: white;
 }
 
+
 /* ========================= */
 /* CARDS                     */
 /* ========================= */
 
 .card {
-  background-color: #2d3f57;
-  border-left: 6px solid #18cf92;
+  background-color: #4b0052;
+  border-left: 6px solid #791283;
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
@@ -166,7 +149,7 @@ main {
   flex-direction: column;
   gap: 10px;
 
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .card:hover {
@@ -178,6 +161,7 @@ main {
   font-weight: 500;
   font-size: 16px;
 }
+
 
 /* Prioridades */
 
@@ -193,7 +177,10 @@ main {
   border-left-color: #34c759;
 }
 
-/* Botões */
+
+/* ========================= */
+/* BOTÕES                    */
+/* ========================= */
 
 .acoes {
   display: flex;
@@ -206,14 +193,15 @@ main {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #18cf92;
+  background-color: #45096d;
   color: white;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .card button:hover {
-  background-color: #14b27d;
+  background-color: #9909b6;
 }
+
 
 /* ========================= */
 /* LISTA ANTIGA              */
@@ -230,6 +218,7 @@ main {
   margin-top: 20px;
 }
 
+
 /* ========================= */
 /* RODAPÉ                    */
 /* ========================= */
@@ -238,15 +227,17 @@ footer {
   padding: 16px;
   text-align: center;
   color: #94a3b8;
-  border-top: 1px solid #219b9b;
+  border-top: 1px solid #b403ab;
   margin-top: 30px;
 }
+
 
 /* ========================= */
 /* RESPONSIVO                */
 /* ========================= */
 
 @media (max-width: 900px) {
+
   .kanban {
     flex-direction: column;
   }
